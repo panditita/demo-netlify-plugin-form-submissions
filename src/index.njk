@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Demo - Form submissions Netlify plugin</title>
   <link rel="stylesheet" href="/style.css">
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css' rel='stylesheet' />
-</head>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
+  
 <body>
-
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+</head>
   <div class="tint">
     <header>
       <section>
@@ -19,6 +22,7 @@
   </div>
 
   <main>
+  <section>
       <ul class="submissions">
         {% for item in collection-form | reverse %}
           <li>
@@ -27,7 +31,6 @@
           </li>
         {% endfor %}
       </ul>
-    </section>
   <h2>Sample form</h2>
 
   <form
@@ -36,9 +39,6 @@
     data-netlify="true"
     data-netlify-honeypot="bot-field"
   >
-    <label>Your Name: </label>
-    <input type="text" name="name" />
-
     <div id="geocoder"></div>
 
     <input type="hidden" id="lat" name="lat" value="" />
@@ -46,9 +46,6 @@
 
     <button type="submit">Submit</button>
   </form>
-
-  
-</section>
 
     </section>
    
