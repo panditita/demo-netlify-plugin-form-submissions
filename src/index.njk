@@ -19,10 +19,15 @@
   </div>
 
   <main>
-     <section>
-     
-
-<section>
+      <ul class="submissions">
+        {% for item in collection-form | reverse %}
+          <li>
+            <p>{{ item.data.lat}}</p>
+            <p>{{ item.data.lng}}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
   <h2>Sample form</h2>
 
   <form
