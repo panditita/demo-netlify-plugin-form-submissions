@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Demo - Form submissions Netlify plugin</title>
   <link rel="stylesheet" href="/style.css">
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
 
@@ -18,70 +19,73 @@
   </div>
 
   <main>
-    <section>
-      <h2>netlify-plugin-form-submissions</h2>
-      <p>
-        A Netlify plugin to discover form submissions and fetch them from the <a href="https://open-api.netlify.com?{{ site.utm }}#tag/submission">Netlify API</a>, making them available to the site generator during each build.
-      </p>
-      <p>
-        Find installation and usage guide in <a href="{{ site.pluginRepo }}">the plugin repo</a>.
-      </p>
-      <p>
-        We might use submissions to our forms in different ways in our sites. Here we just list out the data collected from the sample form below. You could trigger all sorts of automation with form submissions and pull the data into the site with this plugin. Which is what happens in this <a href="https://jamstack-comments.netlify.app">blog comments example</a>.
-      </p>
+     <section>
+     
+
+<section>
+  <h2>Sample form</h2>
+
+  <form
+    method="post"
+    name="collection-form"
+    data-netlify="true"
+    data-netlify-honeypot="bot-field"
+  >
+    <label>Your Name: </label>
+    <input type="text" name="name" />
+
+    <div id="geocoder"></div>
+
+    <input type="hidden" id="lat" name="lat" value="" />
+    <input type="hidden" id="lng" name="lng" value="" />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  
+</section>
+
     </section>
-    <section>
-      <h2>Form submissions</h2>
-      <p>
-        The plugin <a href="https://app.netlify.com/sites/demo-netlify-plugin-form-submissions/deploys/5f087442b5eb730007680f51?{{ site.utm }}">ran before this site build</a>, discovered all the Netlify forms in the site and pulled the submission data into json files ready for the site generator to use during the build. Here they are!
-      </p>
-      <ul class="submissions">
-        {% for item in sampleform_submissions | reverse %}
-          <li>
-            <p>{{ item.data.name}}</p>
-            <div>Cat person or dog person: <span class="type">{{ item.data.type }}</span> </div>
-          </li>
-        {% endfor %}
-      </ul>
-    </section>
-    <section>
-      <h2>Sample form</h2>
-      <p>
-        This form posts to Netlify Forms. You can read about how they work in the docs. It no longer <a href="https://docs.netlify.com/functions/trigger-on-events/#available-triggers?{{ site.utm }}">triggers</a> an automated rebuild of this site, so if you post to it your submission won't appear in the site. (But that's just becase this is an unmoderated demo)
-      </p>
-      <form action="/thanks" method="post" name="sampleform" netlify>
-        <p>
-          <label>Your Name: <input type="text" name="name" /></label>
-        </p>
-        <p>
-          <label>Your personlaity: <select name="type">
-            <option value="a cat person">A cat person</option>
-            <option value="a dog person">A dog person</option>
-            <option value="neither">Neither</option>
-            <option value="why not both?">Why not both?</option>
-          </select></label>
-        </p>
-        <p>
-          <button type="submit">Submit</button>
-        </p>
-      </form>
-    </section>
-    <section>
-      <h2>Try this for yourself</h2>
-      <p>
-        To quickly experiment with this example, you can click the button below. Clicking the button will clone <a href="{{ pkg.repository.url }}">this test site repo</a>, setup a new site <a href="https://netlify.com">on Netlify</a> and deploy the site complete with Netlify's CI/CD pipeline configured and operational.
-      </p>
-      <p>
-        <a class="naked" href="https://app.netlify.com/start/deploy?repository={{ pkg.repository.url }}&{{ site.utm }}"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
-      </p>
-    </section>
+   
   </main>
 
-  <footer>
-    <section>
-      Made with <img class="netliheart" title="love" src="/images/netliheart.svg" alt="love" width="1em"> by the <a href="https://netlify.com">Netlify</a> team. Explore <a href="{{ pkg.repository.url }}">the code</a> in GitHub. Follow <a href="https://twitter.com/netlify">@Netliify</a> on Twitter for regular updates</a>.
-    </section>
-  </footer>
+<script>
+    mapboxgl.accessToken =
+      "pk.eyJ1IjoibXVsdGl0dWRlcyIsImEiOiJja3VtbXRyM3cwZzQ3MnZwMTdoenRheXUxIn0.mTaqrjMcME57vZlFxGIRJQ";
 
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      types: "country,region,place,postcode,locality,neighborhood",
+    });
+
+    geocoder.addTo("#geocoder");
+
+    // Get the geocoder results container.
+    const results = document.getElementById("result");
+    const latField = document.getElementById("lat");
+    const lngField = document.getElementById("lng");
+
+    // Add geocoder result to container.
+    geocoder.on("result", (e) => {
+      latField.value = JSON.stringify(
+        e.result.geometry.coordinates[0],
+        null,
+        2
+      );
+      lngField.value = JSON.stringify(
+        e.result.geometry.coordinates[1],
+        null,
+        2
+      );
+    });
+
+    // Clear results container when search is cleared.
+    geocoder.on("clear", () => {
+      latField.value = "";
+      lngField.value = "";
+    });
+  </script>
 </body>
+<footer>  
+</footer>
 </html>

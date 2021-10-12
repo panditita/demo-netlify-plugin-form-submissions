@@ -13,7 +13,8 @@
     "url": "https://github.com/philhawksworth/demo-netlify-plugin-form-submissions"
   },
   "dependencies": {
-    "@11ty/eleventy": "^0.11.0",
+    "@11ty/eleventy": "^0.12.1",
+    "mapbox-gl": "^2.5.1",
     "netlify-plugin-form-submissions": "^0.1.4"
   }
 }
