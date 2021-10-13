@@ -13,7 +13,7 @@
     # e.g. ["form-name-1", "form-name-2"]
     # e.g. "ALL"
     # default: "ALL"
-    formNames = "ALL"
+    formNames = "collection-form"
 
     # the folder to recieve json files for each form
     dataDirectory = "src/_data"

@@ -1,93 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo - Form submissions Netlify plugin</title>
-  <link rel="stylesheet" href="/style.css">
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
-  
-<body>
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
-  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
-</head>
-  <div class="tint">
-    <header>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Form submissions Netlify plugin</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
+
+    <body>
+      <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+      <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+    </head>
+    <div class="tint">
+      <header>
+        <section>
+          <h1>Form submissions plugin</h1>
+          <p class="subtitle">A little demo of a Netlify plugin</p>
+        </section>
+      </header>
+    </div>
+
+    <main>
       <section>
-        <h1>Form submissions plugin</h1>
-        <p class="subtitle">A little demo of a Netlify plugin</p>
+        <ul class="submissions">
+          {% for item in collection-form | reverse %}
+            <li>
+              <p>{{ item.data.lat}}</p>
+              <p>{{ item.data.lng}}</p>
+            </li>
+          {% endfor %}
+        </ul>
+        {% include "form.njk" %}
+
       </section>
-    </header>
-  </div>
 
-  <main>
-  <section>
-      <ul class="submissions">
-        {% for item in collection-form | reverse %}
-          <li>
-            <p>{{ item.data.lat}}</p>
-            <p>{{ item.data.lng}}</p>
-          </li>
-        {% endfor %}
-      </ul>
-  <h2>Sample form</h2>
+    </main>
 
-  <form
-    method="post"
-    name="collection-form"
-    data-netlify="true"
-    data-netlify-honeypot="bot-field"
-  >
-    <div id="geocoder"></div>
+    <script>
+      mapboxgl.accessToken = "pk.eyJ1IjoibXVsdGl0dWRlcyIsImEiOiJja3VtbXRyM3cwZzQ3MnZwMTdoenRheXUxIn0.mTaqrjMcME57vZlFxGIRJQ";
 
-    <input type="hidden" id="lat" name="lat" value="" />
-    <input type="hidden" id="lng" name="lng" value="" />
+      const geocoder = new MapboxGeocoder({accessToken: mapboxgl.accessToken, types: "country,region,place,postcode,locality,neighborhood"});
 
-    <button type="submit">Submit</button>
-  </form>
+      geocoder.addTo("#geocoder");
 
-    </section>
-   
-  </main>
+      // Get the geocoder results container.
+      const results = document.getElementById("result");
+      const latField = document.getElementById("lat");
+      const lngField = document.getElementById("lng");
 
-<script>
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoibXVsdGl0dWRlcyIsImEiOiJja3VtbXRyM3cwZzQ3MnZwMTdoenRheXUxIn0.mTaqrjMcME57vZlFxGIRJQ";
+      // Add geocoder result to container.
+      geocoder.on("result", (e) => {
+        latField.value = JSON.stringify(e.result.geometry.coordinates[0], null, 2);
+        lngField.value = JSON.stringify(e.result.geometry.coordinates[1], null, 2);
+      });
 
-    const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      types: "country,region,place,postcode,locality,neighborhood",
-    });
+      // Clear results container when search is cleared.
+      geocoder.on("clear", () => {
+        latField.value = "";
+        lngField.value = "";
+      });
 
-    geocoder.addTo("#geocoder");
-
-    // Get the geocoder results container.
-    const results = document.getElementById("result");
-    const latField = document.getElementById("lat");
-    const lngField = document.getElementById("lng");
-
-    // Add geocoder result to container.
-    geocoder.on("result", (e) => {
-      latField.value = JSON.stringify(
-        e.result.geometry.coordinates[0],
-        null,
-        2
-      );
-      lngField.value = JSON.stringify(
-        e.result.geometry.coordinates[1],
-        null,
-        2
-      );
-    });
-
-    // Clear results container when search is cleared.
-    geocoder.on("clear", () => {
-      latField.value = "";
-      lngField.value = "";
-    });
-  </script>
-</body>
-<footer>  
-</footer>
+      console.log({%collection-form%})
+      
+    </script>
+  </body>
 </html>
