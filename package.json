@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Demo Netlify Build Plugin: Form Submissions",
   "author": "Phil Hawksworth",
-  "license": "MIT",
+  "license": "MIT", 
+  "type": "module",
   "scripts": {
     "start": "npx eleventy --serve",
     "build": "npx eleventy"
@@ -14,7 +15,9 @@
   },
   "dependencies": {
     "@11ty/eleventy": "^0.12.1",
+    "dotenv": "^10.0.0",
     "mapbox-gl": "^2.5.1",
-    "netlify-plugin-form-submissions": "^0.1.4"
+    "netlify-plugin-form-submissions": "^0.1.4",
+    "node-fetch": "^3.0.0"
   }
 }
