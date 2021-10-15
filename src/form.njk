@@ -14,18 +14,53 @@
     <style>
       #geocoder {
         z-index: 1;
-        margin: 20px;
+        margin: 0 0 10px;
       }
     </style>
     <section>
-      <h2>Sample form</h2>
+      <h1>Submit a new archive</h1>
       <form method="post" name="collection-form" data-netlify="true" data-netlify-honeypot="bot-field">
-        <div id="geocoder"></div>
+        <label for="archive-name">
+          Archive Name</label>
+        <input id="archive-name" name="archive-name" type="text"/>
 
-        <input type="hidden" id="lat" name="lat" value=""/>
-        <input type="hidden" id="lng" name="lng" value=""/>
+        <label for="archive-description">
+          Archive description</label>
+        <input id="archive-description" name="archive-description" type="text"/>
 
-        <button type="submit">Submit</button>
+        <label for="archive-region">
+          Archive region</label>
+        <input id="archive-region" name="archive-region" type="text"/>
+
+        <div id="archive-address">
+          <label for="archive-location">
+            Archive Address
+          </label>
+          <div id="geocoder"></div>
+          <input type="hidden" id="lat" name="lat"/>
+          <input type="hidden" id="lng" name="lng"/>
+        </div>
+
+        <label for="archive-link">
+          Link to materials</label>
+        <input id="archive-link" name="archive-link" type="url"/>
+        <label for="archive-tags">
+          Keywords</label>
+        <input id="archive-tags" name="archive-tags" type="text"/>
+
+        <fieldset>
+          <legend>Select the type of materials available:</legend>
+          <input id="audio" type="checkbox" name="archive-type-material" value="audio">
+          <label for="audio">Audio</label><br>
+          <input id="video" type="checkbox" name="archive-type-material" value="vdeo">
+          <label for="video">video</label><br>
+          <input id="newspapers" type="checkbox" name="archive-type-material" value="newspapers">
+          <label for="newspapers">Newspapers</label><br>
+          <input id="magazines" type="checkbox" name="archive-type-material" value="magazines">
+          <label for="magazines">Magazines</label>
+        </fieldset>
+
+        <button type="submit" name="submit" value="Submit Form">Submit</button>
       </form>
     </section>
     <script>
@@ -35,12 +70,16 @@
 
       geocoder.addTo("#geocoder");
 
-      // Get the geocoder results container.
-      const results = document.getElementById("result");
+      // making geocoder input more accessible
+      geocoderInput = document.getElementsByClassName('mapboxgl-ctrl-geocoder--input');
+      geocoderInput[0].placeholder = 'search by postcode';
+      geocoderInput[0].name = 'archive-location';
+
+      // Get each hidden field.
       const latField = document.getElementById("lat");
       const lngField = document.getElementById("lng");
 
-      // Add geocoder result to container.
+      // Add geocoder results into each coodinates hidden fields.
       geocoder.on("result", (e) => {
         latField.value = JSON.stringify(e.result.geometry.coordinates[1], null, 2);
         lngField.value = JSON.stringify(e.result.geometry.coordinates[0], null, 2);
