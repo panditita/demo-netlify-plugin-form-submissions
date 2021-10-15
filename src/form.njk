@@ -53,43 +53,43 @@
         <input id="archive-tags" name="archive-tags" type="text"/>
 
         <fieldset>
-          <label for="archive-material">Select the type of materials available:</label><br>
-          <input id="audio" type="checkbox" name="audio" value="audio">
+          <legend>Select the type of materials available:</legend>
+          <input id="audio" type="checkbox" name="audio" value="yes">
           <label for="audio">Audio</label><br>
 
-          <input id="film" type="checkbox" name="film" value="film">
+          <input id="film" type="checkbox" name="film" value="yes">
           <label for="film">Film</label><br>
 
-          <input id="ephemera" type="checkbox" name="ephemer" value="ephemera">
+          <input id="ephemera" type="checkbox" name="ephemer" value="yes">
           <label for="ephemera">Ephemera</label><br>
 
-          <input id="images" type="checkbox" name="images" value="images">
+          <input id="images" type="checkbox" name="images" value="yes">
           <label for="images">Images/Photographs</label>
 
-          <input id="official-records" type="checkbox" name="official-records" value="official-records">
+          <input id="official-records" type="checkbox" name="official-records" value="yes">
           <label for="official-records">
             Official records</label>
 
-          <input id="fine-art" type="checkbox" name="fine-art" value="fine-art">
+          <input id="fine-art" type="checkbox" name="fine-art" value="yes">
           <label for="fine-art">
             Fine Art</label>
 
-          <input id="correspondence" type="checkbox" name="correspondence" value="correspondence">
+          <input id="correspondence" type="checkbox" name="correspondence" value="yes">
           <label for="correspondence">
             Correspondence</label>
 
-          <input id="published-reports" type="checkbox" name="published-reports" value="published-reports">
+          <input id="published-reports" type="checkbox" name="published-reports" value="yes">
           <label for="published-reports">
             Published reports</label>
 
-          <input id="maps" type="checkbox" name="maps" value="maps">
+          <input id="maps" type="checkbox" name="maps" value="yes">
           <label for="maps">
             Maps</label>
 
-          <input id="unknown" type="checkbox" name="unkwon" value="unknown">
+          <input id="unknown" type="checkbox" name="unkwon" value="yesn">
           <label for="unknown">
             Unknown</label>
-        <input type="hidden" id="archive-material" name="archive-material"/>
+        {# <input type="hidden" id="archive-material" name="archive-material"/> #}
 
         </fieldset>
 
@@ -124,8 +124,9 @@
         lngField.value = "";
       });
 
-      function getSelectedCheckboxValues(name) {
-        const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+/*
+      function getSelectedCheckboxValues() {
+        const checkboxes = document.querySelectorAll(`fieldset input:checked`);
         const checkboxesInput = document.getElementById("archive-material");
 
         let values = [];
@@ -139,8 +140,8 @@
       }
       const submitBtn = document.querySelector('#submitBtn');
       submitBtn.addEventListener('click', (event) => {
-        getSelectedCheckboxValues('archive-material');
-      });
+        getSelectedCheckboxValues();
+      });*/
     </script>
   </body>
 </html>
