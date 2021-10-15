@@ -53,8 +53,7 @@
         <input id="archive-tags" name="archive-tags" type="text"/>
 
         <fieldset>
-          <legend>Select the type of materials available:</legend>
-
+          <label for="archive-material">Select the type of materials available:</label><br>
           <input id="audio" type="checkbox" name="archive-material" value="audio">
           <label for="audio">Audio</label><br>
 
@@ -92,6 +91,7 @@
             Unknown</label>
 
         </fieldset>
+
         <input type="hidden" id="archive-material" name="archive-material"/>
 
         <button id="submitBtn" type="submit" name="submit" value="Submit Form">Submit</button>
@@ -142,7 +142,6 @@
       submitBtn.addEventListener('click', (event) => {
         getSelectedCheckboxValues('archive-material');
       });
-
     </script>
   </body>
 </html>
