@@ -32,9 +32,9 @@
           Which time periods do the materials relate to?</label>
         <input id="archive-time" name="archive-time" type="text"/>
 
-        <label for="archive-region">
-          Archive Region</label>
-        <input id="archive-region" name="archive-region" type="text"/>
+        <label for="archive-country">
+          Archive Country</label>
+        <input id="archive-country" name="archive-country" type="text"/>
 
         <div id="archive-address">
           <label for="archive-location">
@@ -54,45 +54,44 @@
 
         <fieldset>
           <label for="archive-material">Select the type of materials available:</label><br>
-          <input id="audio" type="checkbox" name="archive-material" value="audio">
+          <input id="audio" type="checkbox" name="audio" value="audio">
           <label for="audio">Audio</label><br>
 
-          <input id="film" type="checkbox" name="archive-material" value="film">
+          <input id="film" type="checkbox" name="film" value="film">
           <label for="film">Film</label><br>
 
-          <input id="ephemera" type="checkbox" name="archive-material" value="ephemera">
+          <input id="ephemera" type="checkbox" name="ephemer" value="ephemera">
           <label for="ephemera">Ephemera</label><br>
 
-          <input id="images" type="checkbox" name="archive-material" value="images">
+          <input id="images" type="checkbox" name="images" value="images">
           <label for="images">Images/Photographs</label>
 
-          <input id="official-records" type="checkbox" name="archive-material" value="official-records">
+          <input id="official-records" type="checkbox" name="official-records" value="official-records">
           <label for="official-records">
             Official records</label>
 
-          <input id="fine-art" type="checkbox" name="archive-material" value="fine-art">
+          <input id="fine-art" type="checkbox" name="fine-art" value="fine-art">
           <label for="fine-art">
             Fine Art</label>
 
-          <input id="correspondence" type="checkbox" name="archive-material" value="correspondence">
+          <input id="correspondence" type="checkbox" name="correspondence" value="correspondence">
           <label for="correspondence">
             Correspondence</label>
 
-          <input id="published-reports" type="checkbox" name="archive-material" value="published-reports">
+          <input id="published-reports" type="checkbox" name="published-reports" value="published-reports">
           <label for="published-reports">
             Published reports</label>
 
-          <input id="maps" type="checkbox" name="archive-material" value="maps">
+          <input id="maps" type="checkbox" name="maps" value="maps">
           <label for="maps">
             Maps</label>
 
-          <input id="unknown" type="checkbox" name="archive-material" value="unknown">
+          <input id="unknown" type="checkbox" name="unkwon" value="unknown">
           <label for="unknown">
             Unknown</label>
+        <input type="hidden" id="archive-material" name="archive-material"/>
 
         </fieldset>
-
-        <input type="hidden" id="archive-material" name="archive-material"/>
 
         <button id="submitBtn" type="submit" name="submit" value="Submit Form">Submit</button>
       </form>
